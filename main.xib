@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
+        <deployment defaultVersion="1060" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
@@ -8,9 +9,11 @@
             <connections>
                 <outlet property="_window" destination="12" id="26"/>
                 <outlet property="bigSwitch" destination="PEs-or-JCS" id="4xC-mu-JQB"/>
+                <outlet property="checkmate" destination="WbS-KX-aKA" id="VUI-f0-FcZ"/>
                 <outlet property="git" destination="Gz4-a3-iCR" id="hH5-RY-okF"/>
                 <outlet property="github" destination="qjo-9X-It9" id="2P4-5b-tJP"/>
                 <outlet property="gitx" destination="b9C-wU-Bfo" id="QtQ-LB-inU"/>
+                <outlet property="installCheckmate" destination="6wB-it-ZR9" id="LoG-1k-dWR"/>
                 <outlet property="mavericks" destination="SKz-1U-8p3" id="AAU-gD-Jta"/>
                 <outlet property="mmmmmm" destination="iKi-Zs-Dqk" id="e6x-vW-Q39"/>
                 <outlet property="refresh" destination="hrW-60-R2A" id="9k2-FP-hDW"/>
@@ -82,7 +85,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="pLE-9R-ocU">
-                        <rect key="frame" x="226" y="48" width="109" height="17"/>
+                        <rect key="frame" x="226" y="23" width="109" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="The Good Stuff™" id="LNL-Vm-5ns">
                             <font key="font" metaFont="system"/>
@@ -111,7 +114,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </customView>
                     <customView id="iKi-Zs-Dqk" customClass="MMLED">
-                        <rect key="frame" x="209" y="50" width="12" height="12"/>
+                        <rect key="frame" x="209" y="25" width="12" height="12"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </customView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="pa6-Nk-qJc">
@@ -168,6 +171,27 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <button verticalHuggingPriority="750" id="6wB-it-ZR9">
+                        <rect key="frame" x="305" y="45" width="116" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Install CheckMate" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kxA-3H-UA0">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Y8s-p5-ikb">
+                        <rect key="frame" x="226" y="48" width="73" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="CheckMate" id="GOp-K1-z3D">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <customView id="WbS-KX-aKA" customClass="MMLED">
+                        <rect key="frame" x="209" y="50" width="12" height="12"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                 </subviews>
             </view>
         </window>

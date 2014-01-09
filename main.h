@@ -8,7 +8,7 @@ enum MMErrorCode {
 };
 
 
-@interface MMPane : NSPreferencePane
+@interface MMPane : NSPreferencePane <NSURLDownloadDelegate>
 - (void)mainViewDidLoad;
 @end
 
@@ -67,6 +67,9 @@ enum MMErrorCode {
 @end
 
 @interface MMTextMateDiagnostic : NSObject <MMDiagnostic>
+@end
+
+@interface MMCheckMateDiagnostic : NSObject <MMDiagnostic>
 @end
 
 @interface MMmmmmDiagnostic : NSObject <MMDiagnostic>

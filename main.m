@@ -5,7 +5,6 @@ BOOL mdfind(NSString *app) {
 }
 
 
-
 @implementation MMPane {
     IBOutlet MMLED *mavericks;
     IBOutlet MMLED *xcode;
@@ -13,10 +12,14 @@ BOOL mdfind(NSString *app) {
     IBOutlet MMLED *gitx;
     IBOutlet MMLED *github;
     IBOutlet MMLED *textmate;
+    IBOutlet MMLED *checkmate;
     IBOutlet MMLED *mmmmmm;
     IBOutlet NSTextView *textView;
     IBOutlet MMSwitchView *bigSwitch;
     IBOutlet NSButton *refresh;
+    IBOutlet NSButton *installCheckmate;
+
+    NSURLDownload *dl;
 }
 
 - (void)mainViewDidLoad {
@@ -29,6 +32,10 @@ BOOL mdfind(NSString *app) {
 
     refresh.target = self;
     refresh.action = @selector(check);
+
+    installCheckmate.hidden = YES;
+    installCheckmate.target = self;
+    installCheckmate.action = @selector(onInstallCheckmateClicked);
 
     [self check];
 }
@@ -43,6 +50,7 @@ BOOL mdfind(NSString *app) {
     textView.string = @"";
 
     MMmmmmDiagnostic *mmmmmmdiagnostic = [[MMmmmmDiagnostic alloc] initWithBundle:self.bundle];
+    MMCheckMateDiagnostic *checkmateDiagnostic = nil;
 
     @try {
         [mavericks checkWith:[MMMavericksDiagnostic new]];
@@ -51,6 +59,7 @@ BOOL mdfind(NSString *app) {
         [gitx checkWith:[MMGitXDiagnostic new]];
         [github checkWith:[MMGitHubDiagnostic new]];
         [textmate checkWith:[MMTextMateDiagnostic new]];
+        [checkmate checkWith:checkmateDiagnostic = [MMCheckMateDiagnostic new]];
         [mmmmmm checkWith:mmmmmmdiagnostic];
     }
     @catch (NSError *e) {
@@ -69,6 +78,14 @@ BOOL mdfind(NSString *app) {
         [textView setEnabledTextCheckingTypes:NSTextCheckingTypeLink];
         [textView checkTextInDocument:nil];
         textView.string = s;
+    }
+
+    if (checkmateDiagnostic) {
+        installCheckmate.hidden = NO;
+        if ([checkmateDiagnostic execute:nil]) {
+            installCheckmate.title = @"Update CheckMate";
+            [installCheckmate sizeToFit];
+        }
     }
 
     int state = [mmmmmmdiagnostic execute:nil] == NO ? NSOffState : NSOnState;
@@ -122,6 +139,34 @@ BOOL mdfind(NSString *app) {
         [self deactivate];
 
     [self check];
+}
+
+static NSString *path() {
+    return [@"~/Library/Frameworks/Checkmate.framework.bz2" stringByExpandingTildeInPath];
+}
+
+- (void)onInstallCheckmateClicked {
+    id d = [path() stringByDeletingLastPathComponent];
+    [[NSFileManager defaultManager] createDirectoryAtPath:d withIntermediateDirectories:YES attributes:nil error:nil];
+
+    id rq = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://methylblue.com/MM/CheckMate.framework.tbz"]];
+    dl = [[NSURLDownload alloc] initWithRequest:rq delegate:self];
+    [dl setDestination:path() allowOverwrite:YES];
+}
+
+- (void)downloadDidFinish:(NSURLDownload *)download {
+    NSTask *task = [NSTask new];
+    task.currentDirectoryPath = [path() stringByDeletingLastPathComponent];
+    task.launchPath = @"/usr/bin/tar";
+    task.arguments = @[@"xf", path()];
+    [task launch];
+    [task waitUntilExit];
+
+    [self check];
+}
+
+- (void)download:(NSURLDownload *)download didFailWithError:(NSError *)error {
+    [[NSAlert alertWithError:error] runModal];
 }
 
 @end
